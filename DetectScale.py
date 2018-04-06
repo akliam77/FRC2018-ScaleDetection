@@ -4,16 +4,17 @@ from time import sleep
 from networktables import NetworkTables as nt
 import math
 
-cap = cv2.VideoCapture(0)
-ip = "10.46.82.2"
-nt.initialize(server=ip)
+'''---------------Defined Variables----------------'''
 
-#sd = nt.getTable("SmartDashboard")
-s = nt.getTable('Scale')
-sw = nt.getTable('Switch')
-centerX = 320
-centerY = 225
-s.putNumber('View', 1)
+     cap = cv2.VideoCapture(0)
+     ip = "10.46.82.2"
+     nt.initialize(server=ip)
+     s = nt.getTable('Scale')
+     sw = nt.getTable('Switch')
+     centerX = 320
+     centerY = 225
+'''--------------------------------------------------'''
+
 def valueChanged(table, key, value, isNew):
      print("valueChanged: key: '%s'; value: %s; isNew: %s" % (key,value, isNew))
 
@@ -54,7 +55,7 @@ while(True):
     resR = cv2.bitwise_and(frame,frame, mask= maskR)
     im2, contoursB, hierarchy1 = cv2.findContours(maskB, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     im3, contoursR, hierarchy2 = cv2.findContours(maskR, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    #cnt = cv2.findContours(dst.copy())
+  
     imge = frame
     
     blobB = max(contoursB, key=lambda el: cv2.contourArea(el), default=0)
@@ -66,12 +67,7 @@ while(True):
         print("Empty contours")
     else:
         pass
-    
-        
-    
-   
-
-        
+       
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     
     centerB = computeCenter(MB)
@@ -91,9 +87,7 @@ while(True):
             cv2.circle(canvas, (x, y), r, (255, 255, 0), 4)
             cv2.rectangle(canvas, (x - 5, y - 5), (x + 5, y + 5), (0, 128, 255), -1)
             
-            
-            
-            
+                        
     cv2.circle(canvas, centerR, 2 ,(0,255,0), -1)
     cv2.circle(canvas, centerB, 2, (255, 0, 0), -1)
     
